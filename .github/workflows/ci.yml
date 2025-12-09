@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main", "devops" ]
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -55,9 +55,13 @@ jobs:
       - name: Build solution
         run: dotnet build CourseSystem.sln --configuration Release --no-restore
 
+      - name: Run unit tests
+        run: dotnet test tests/CourseSystem.Unit.Tests/CourseSystem.Unit.Tests.csproj --configuration Release --no-build --verbosity normal
+
       - name: Run integration tests
-        run: dotnet test tests/CourseSystem.Integration.Tests/CourseSystem.Integration.Tests.csproj --no-build --verbosity normal
+        run: dotnet test tests/CourseSystem.Integration.Tests/CourseSystem.Integration.Tests.csproj --configuration Release --no-build --verbosity normal
+        env:
+          ConnectionStrings__Database: ${{ env.ConnectionStrings__Database }}
 
       - name: Build Docker image
-        run: |
-          docker build -t ufaz-course-system:latest -f src/CourseSystem.API/Dockerfile .
+        run: docker build -t ufaz-course-system:latest -f src/CourseSystem.API/Dockerfile .
