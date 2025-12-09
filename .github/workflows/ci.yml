@@ -64,4 +64,4 @@ jobs:
           ConnectionStrings__Database: ${{ env.ConnectionStrings__Database }}
 
       - name: Build Docker image
-        run: docker build -t ufaz-course-system:latest -f src/CourseSystem.API/Dockerfile .
+        run: docker build -t ufaz-course-system:latest -f Dockerfile .
