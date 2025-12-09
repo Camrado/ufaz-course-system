@@ -5,6 +5,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" >
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" />
     </ItemGroup>
 
     <ItemGroup>
