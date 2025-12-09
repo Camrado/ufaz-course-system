@@ -5,11 +5,12 @@ COPY CourseSystem.sln .
 COPY Directory.Build.props .
 COPY Directory.Packages.props .
 
-COPY CourseSystem.API/CourseSystem.API.csproj CourseSystem.API/
-COPY CourseSystem.Application/CourseSystem.Application.csproj CourseSystem.Application/
-COPY CourseSystem.Infrastructure/CourseSystem.Infrastructure.csproj CourseSystem.Infrastructure/
-COPY CourseSystem.Persistence/CourseSystem.Persistence.csproj CourseSystem.Persistence/
-COPY CourseSystem.Exceptions/CourseSystem.Exceptions.csproj CourseSystem.Exceptions/
+COPY src/CourseSystem.API/CourseSystem.API.csproj CourseSystem.API/
+COPY src/CourseSystem.Application/CourseSystem.Application.csproj CourseSystem.Application/
+COPY src/CourseSystem.Infrastructure/CourseSystem.Infrastructure.csproj CourseSystem.Infrastructure/
+COPY src/CourseSystem.Persistence/CourseSystem.Persistence.csproj CourseSystem.Persistence/
+COPY src/CourseSystem.Exceptions/CourseSystem.Exceptions.csproj CourseSystem.Exceptions/
+
 
 RUN dotnet restore CourseSystem.sln
 
