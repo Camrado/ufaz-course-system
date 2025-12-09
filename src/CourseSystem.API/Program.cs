@@ -13,7 +13,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-var test = None;
+var test = null;
 
 app.UseHttpsRedirection();
 
