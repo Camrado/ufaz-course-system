@@ -5,18 +5,12 @@ COPY CourseSystem.sln .
 COPY Directory.Build.props .
 COPY Directory.Packages.props .
 
-COPY src/CourseSystem.API/CourseSystem.API.csproj CourseSystem.API/
-COPY src/CourseSystem.Application/CourseSystem.Application.csproj CourseSystem.Application/
-COPY src/CourseSystem.Infrastructure/CourseSystem.Infrastructure.csproj CourseSystem.Infrastructure/
-COPY src/CourseSystem.Persistence/CourseSystem.Persistence.csproj CourseSystem.Persistence/
-COPY src/CourseSystem.Exceptions/CourseSystem.Exceptions.csproj CourseSystem.Exceptions/
-
+COPY src/ ./src
+COPY tests/ ./tests
 
 RUN dotnet restore CourseSystem.sln
 
-COPY . .
-
-RUN dotnet publish CourseSystem.API/CourseSystem.API.csproj -c Release -o /app/publish
+RUN dotnet publish src/CourseSystem.API/CourseSystem.API.csproj -c Release -o /app/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
