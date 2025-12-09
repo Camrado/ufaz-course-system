@@ -5,7 +5,8 @@ on:
     branches: [ "main", "devops" ]
   pull_request:
     branches: [ "main", "devops" ]
-
+  workflow_dispatch:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
