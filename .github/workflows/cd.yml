@@ -29,5 +29,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/ufaz-course-system:latest
-            ghcr.io/${{ github.repository_owner }}/ufaz-course-system:${{ github.sha }}
+            ghcr.io/camrado/ufaz-course-system:latest
+            ghcr.io/camrado/ufaz-course-system:${{ github.sha }}
