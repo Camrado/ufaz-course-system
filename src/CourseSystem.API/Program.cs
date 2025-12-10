@@ -52,8 +52,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("Frontend");
-
 app.UseExceptionHandler();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html"); // SPA routing
 
 app.MapControllers();
 
