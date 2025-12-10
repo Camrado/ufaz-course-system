@@ -92,7 +92,6 @@ export default function CoursesPage({ category, onBack }: { category: Category, 
 
 
   const remove = async (id: number) => {
-    if(!confirm("Delete course?")) return;
     try {
       await deleteCourse(id);
       show("Deleted","success");
@@ -253,6 +252,14 @@ export default function CoursesPage({ category, onBack }: { category: Category, 
               <button className="bg-purple-600 text-white w-full py-2 rounded-lg hover:bg-purple-700 mt-4">
                 {edit ? "Update" : "Create"}
               </button>
+
+              <button
+                type="button"
+                onClick={() => setOpenModal(false)}
+                className="w-full py-2 rounded text-gray-600 hover:text-gray-900 text-sm">
+                Cancel
+              </button>
+
             </form>
           </div>
         </div>
