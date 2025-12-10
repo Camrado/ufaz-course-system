@@ -1,10 +1,10 @@
 FROM node:18 AS frontend-build
 WORKDIR /frontend
 
-COPY src/CourseSystem.Frontend/package*.json ./
+COPY course-frontend/package*.json ./
 RUN npm install
 
-COPY src/CourseSystem.Frontend/ ./
+COPY course-frontend/ ./
 RUN npm run build     # Produces "dist" folder
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
