@@ -12,7 +12,7 @@ RUN dotnet restore CourseSystem.sln
 
 RUN dotnet publish src/CourseSystem.API/CourseSystem.API.csproj -c Release -o /app/publish --no-restore
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 
 COPY --from=build /app/publish .
