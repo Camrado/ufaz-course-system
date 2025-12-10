@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "devops" ]
+  pull_request:
+    branches: [ "main", "devops" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5433:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password1
+          POSTGRES_DB: ufaz-course-system
+        options: >-
+          --health-cmd "pg_isready -U postgres -d ufaz-course-system"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_NOLOGO: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      ConnectionStrings__Database: "Host=127.0.0.1;Port=5433;Database=ufaz-course-system;Username=postgres;Password=password1;"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 9 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Wait for Postgres to be ready
+        run: |
+          for i in {1..30}; do
+            pg_isready -h 127.0.0.1 -p 5433 -U postgres && break
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+
+      - name: Restore dependencies
+        run: dotnet restore CourseSystem.sln
+
+      - name: Build solution
+        run: dotnet build CourseSystem.sln --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: dotnet test tests/CourseSystem.Unit.Tests/CourseSystem.Unit.Tests.csproj --configuration Release --no-build --verbosity normal
+
+      - name: Run integration tests
+        run: dotnet test tests/CourseSystem.Integration.Tests/CourseSystem.Integration.Tests.csproj --configuration Release --no-build --verbosity normal
+        env:
+          ConnectionStrings__Database: ${{ env.ConnectionStrings__Database }}
+
+      - name: Build Docker image
+        run: docker build -t ufaz-course-system:latest -f Dockerfile .

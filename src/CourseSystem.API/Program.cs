@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using CourseSystem.API.Extensions;
 using CourseSystem.Application;
 using CourseSystem.Infrastructure;
@@ -33,6 +34,12 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();   // Apply migrations automatically
+}
 
 if (app.Environment.IsDevelopment())
 {
