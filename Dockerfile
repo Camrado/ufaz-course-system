@@ -5,9 +5,9 @@ COPY course-frontend/package*.json ./
 RUN npm install
 
 COPY course-frontend/ ./
-RUN npm run build     # Produces "dist" folder
+RUN npm run build  
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS backend-build
 WORKDIR /src
 
 COPY CourseSystem.sln .
@@ -23,7 +23,7 @@ RUN dotnet publish src/CourseSystem.API/CourseSystem.API.csproj -c Release -o /a
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 
-COPY --from=build /app/publish .
+COPY --from=backend-build /app/publish ./
 
 COPY --from=frontend-build /frontend/dist ./wwwroot/
 
