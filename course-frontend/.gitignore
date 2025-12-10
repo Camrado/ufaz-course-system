@@ -1,5 +1,17 @@
+#############################
+# Node / Frontend
+#############################
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+.vite/deps/
+.cache/
+vite-cache/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +19,47 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Env files
+.env
+.env.local
+.env.*.local
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+#############################
+# .NET / Backend
+#############################
+# Build output
+bin/
+obj/
+lib/
+out/
+
+# User-specific files
+*.user
 *.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
 *.ntvs*
 *.njsproj
-*.sln
+
+# Do NOT ignore entire .sln file — important!
+# Only ignore local overrides
+# (you had *.sln before which hides solution file — I removed it)
+
+#############################
+# IDE / Editors
+#############################
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
 *.sw?
+
+#############################
+# OS Files
+#############################
+.DS_Store
+Thumbs.db
