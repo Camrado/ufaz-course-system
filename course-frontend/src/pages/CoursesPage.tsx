@@ -93,13 +93,14 @@ export default function CoursesPage({ category, onBack }: { category: Category, 
 
   const remove = async (id: number) => {
     try {
-      await deleteCourse(id);
-      show("Deleted","success");
-      load();
-    } catch {
-      show("Delete failed","error");
+      await deleteCourse(id);      // <— delete immediately, no popup
+      await load();                // refresh list
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed — the course may already be removed.");
     }
   };
+
 
   const startEdit = (c: Course) => {
     setEdit(c);

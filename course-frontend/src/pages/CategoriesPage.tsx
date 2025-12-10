@@ -30,10 +30,16 @@ export default function CategoriesPage({ onCategorySelect }: { onCategorySelect:
     load();
   };
 
-  const removeCategory = async (id:number) => {
-    deleteCategory(id);
-    load();
-  };
+  const removeCategory = async (id: number) => {
+  try {
+    await deleteCategory(id);    // no confirmation, performs instantly
+    await load();
+  } catch (err) {
+    console.error(err);
+    alert("Cannot delete — maybe this category still contains courses.");
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-green-100 p-10">
