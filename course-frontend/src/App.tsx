@@ -16,7 +16,7 @@ export default function App() {
     {/* Branding */}
     <div className="flex items-center gap-4">
         <BookOpen size={34} className="text-purple-600" />
-        <h1 className="text-[24px] font-semibold tracking-wide">Course System</h1>
+        <h1 className="text-[24px] font-semibold tracking-wide">UFAZ Course System</h1>
     </div>
 
     {/* Page Switch Buttons */}
